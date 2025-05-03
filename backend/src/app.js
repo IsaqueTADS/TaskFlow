@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
-import router from "./routes/authRoutes";
+import authRoutes from "./routes/authRoutes";
+import taskRoutes from "./routes/taskRoutes";
 
 const app = express();
 app.use(cors());
@@ -10,7 +11,8 @@ app.get("/", (req, res) => {
   res.send("Backend está funcionando! 🚀");
 });
 
-app.use("/api/auth", router);
+app.use("/api/auth", authRoutes);
+app.use("/api/tasks", taskRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {
