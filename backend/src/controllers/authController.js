@@ -1,9 +1,7 @@
-import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import "dotenv/config";
-
-const prisma = new PrismaClient();
+import prisma from "../utils/prisma.js";
 
 //Cadastro de usuario
 export const register = async (req, res) => {
