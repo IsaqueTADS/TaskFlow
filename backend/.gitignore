@@ -1,0 +1,18 @@
+# Dependências
+node_modules/
+
+# Arquivos de ambiente
+.env
+
+# Arquivos gerados automaticamente
+package-lock.json
+prisma/migrations/
+generated/ 
+
+# Arquivos de IDE/Editor
+.vscode/
+.idea/
+
+# Logs e arquivos temporários
+*.log
+*.tmp
