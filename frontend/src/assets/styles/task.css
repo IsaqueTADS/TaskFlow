@@ -34,13 +34,18 @@ h2 {
   border-radius: 12px;
 }
 
+.task-content hr {
+  height: 1px;
+  width: 400px;
+  background-color: rgb(188, 186, 186);
+}
 .task-list {
   background-color: #f0f0f0;
   list-style: none;
   padding: 0;
   margin: 0;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   max-height: 300px;
   overflow-y: auto;
   scroll-behavior: smooth;
@@ -52,8 +57,31 @@ h2 {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  gap: 10px;
   margin-bottom: 10px;
+  background: #f8f9fa;
   border-radius: 4px;
+  width: 390px;
+}
+.task-list li span {
+  display: block;
+  word-break: break-word;
+  width: 390px;
+}
+
+.delete-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #dc3545;
+  font-size: 16px;
+}
+
+.delete-btn:hover {
+  color: #a71d2a;
 }
 
 .task-form {
@@ -62,6 +90,7 @@ h2 {
   justify-content: center;
   align-items: center;
   margin-top: auto; /* esse pode até ser removido */
+  padding: 10px;
 }
 
 .task-form input {

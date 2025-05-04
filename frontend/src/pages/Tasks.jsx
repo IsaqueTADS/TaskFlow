@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../services/api";
 import iconLongout from "../assets/icon/logout.svg";
 import "../assets/styles/index.css";
+import { FaTrash } from "react-icons/fa";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -43,6 +44,25 @@ const Tasks = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
+
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await fetchAPI(`/tasks/${taskId}`, "DELETE");
+      setTasks(tasks.filter((task) => task.id !== taskId));
+    } catch (error) {
+      if (error.message.includes("408")) {
+        alert("Você não pode deletar tasks de outros usuários!");
+      } else {
+        console.error("Erro ao deletar task", error);
+      }
+    }
+  };
+  const confirmDelete = (taskId) => {
+    if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
+      handleDeleteTask(taskId);
+    }
+  };
+
   return (
     <div className="tasks-container">
       <button className="longout-btn" onClick={handleLogout}>
@@ -55,18 +75,27 @@ const Tasks = () => {
           {tasks.map((task) => (
             <li key={task.id}>
               <span>{task.title}</span>
+              <button
+                onClick={() => {
+                  confirmDelete(task.id);
+                }}
+                className="delete-btn"
+                aria-label="Deletar tarefa"
+              >
+                <FaTrash />
+              </button>
             </li>
           ))}
         </ul>
 
-      <div className="task-form">
-        <input
-          type="text"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-        />
-        <button onClick={handleAddTask}>Adicionar</button>
-      </div>
+        <div className="task-form">
+          <input
+            type="text"
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+          />
+          <button onClick={handleAddTask}>Adicionar</button>
+        </div>
       </div>
     </div>
   );
@@ -74,6 +103,4 @@ const Tasks = () => {
 
 export default Tasks;
 
-
 /* /C:/MeusProjetos/taskflow/frontend/src/assets/styles/index.css */
-
