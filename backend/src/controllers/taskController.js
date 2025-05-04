@@ -31,3 +31,31 @@ export const createTask = async (req, res) => {
   });
   res.status(201).json(task);
 };
+
+export const deleteTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const task = await prisma.task.findUnique({
+      where: { id: parseInt(id) },
+    });
+
+    if (!task) {
+      return res.status(404).json({ error: "Task não encontrada" });
+    }
+
+    if (task.userId !== req.userId) {
+      return res
+        .status(403)
+        .json({ error: "Você não tem permissão para excluir esta task" });
+    }
+
+    await prisma.task.delete({
+      where: { id: parseInt(id) },
+    });
+
+    res.json({ message: "Task deletada com sucesso" });
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao deletar task" });
+  }
+};
