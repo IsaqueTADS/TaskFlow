@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../services/api";
+import "../assets/styles/index.css";
+import fotoLogin from "../assets/img/foto-login.png";
 
 const Register = () => {
   const [email, setEmail] = React.useState("");
@@ -19,38 +21,45 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Registrar</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Senha"
-          required
-        />
-        <button type="submit">Registrar</button>
-        <p>
-          Já tem conta?{" "}
-          <button
-            onClick={(event) => {
-              event.preventDefault();
-              navigate("/");
-            }}
-          >
-            Faça login
-          </button>
-        </p>
-      </form>
+    <div className="register-container">
+      <div className="register-content">
+        <div className="title-register">
+          <h2>Cadastre-se</h2>
+          <p>Cadastre-se no nosso site para fazer suas tasks</p>
+        </div>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        <form onSubmit={handleSubmit} className="form-register">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Senha"
+            required
+          />
+          <button type="submit">Cadastrar</button>
+          <p>
+            Já tem conta?{" "}
+            <a
+              onClick={(event) => {
+                event.preventDefault();
+                navigate("/");
+              }}
+            >
+              Faça login
+            </a>
+          </p>
+        </form>
+      </div>
+      <div className="container-img-register">
+        <img src={fotoLogin} alt="" />
+      </div>
     </div>
   );
 };
