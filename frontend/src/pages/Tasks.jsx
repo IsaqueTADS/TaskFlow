@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../services/api";
-import  iconLongout  from "../assets/icon/logout.svg";
+import iconLongout from "../assets/icon/logout.svg";
+import "../assets/styles/index.css";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
@@ -47,8 +48,9 @@ const Tasks = () => {
       <button className="longout-btn" onClick={handleLogout}>
         <img src={iconLongout} alt="longout" />
       </button>
-      <div>
+      <div className="task-content">
         <h2>Minhas Tarefas</h2>
+        <hr />
         <ul className="task-list">
           {tasks.map((task) => (
             <li key={task.id}>
@@ -56,7 +58,7 @@ const Tasks = () => {
             </li>
           ))}
         </ul>
-      </div>
+
       <div className="task-form">
         <input
           type="text"
@@ -65,8 +67,13 @@ const Tasks = () => {
         />
         <button onClick={handleAddTask}>Adicionar</button>
       </div>
+      </div>
     </div>
   );
 };
 
 export default Tasks;
+
+
+/* /C:/MeusProjetos/taskflow/frontend/src/assets/styles/index.css */
+

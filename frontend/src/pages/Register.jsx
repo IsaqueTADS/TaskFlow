@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../services/api";
 import "../assets/styles/index.css";
-import fotoLogin from "../assets/img/foto-login.png";
+import fotoLogin from "../assets/img/foto-register.png";
 
 const Register = () => {
   const [email, setEmail] = React.useState("");
