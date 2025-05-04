@@ -7,7 +7,7 @@ import { FaTrash } from "react-icons/fa";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState("");
+  const [newTask, setNewTask] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,6 +31,12 @@ const Tasks = () => {
   };
 
   const handleAddTask = async () => {
+    const trimmedTask = newTask.trim();
+
+    if (!trimmedTask) {
+      alert("O título da tarefa não pode estar vazio!");
+      return; // Impede a requisição
+    }
     try {
       const task = await fetchAPI("/tasks", "POST", { title: newTask });
       setTasks([...tasks, task]);
@@ -61,6 +67,8 @@ const Tasks = () => {
     if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
       handleDeleteTask(taskId);
     }
+
+    // handleDeleteTask(taskId);
   };
 
   return (
@@ -72,20 +80,21 @@ const Tasks = () => {
         <h2>Minhas Tarefas</h2>
         <hr />
         <ul className="task-list">
-          {tasks.map((task) => (
-            <li key={task.id}>
-              <span>{task.title}</span>
-              <button
-                onClick={() => {
-                  confirmDelete(task.id);
-                }}
-                className="delete-btn"
-                aria-label="Deletar tarefa"
-              >
-                <FaTrash />
-              </button>
-            </li>
-          ))}
+          {Array.isArray(tasks) &&
+            tasks.map((task) => (
+              <li key={task.id}>
+                <span>{task.title}</span>
+                <button
+                  onClick={() => {
+                    confirmDelete(task.id);
+                  }}
+                  className="delete-btn"
+                  aria-label="Deletar tarefa"
+                >
+                  <FaTrash />
+                </button>
+              </li>
+            ))}
         </ul>
 
         <div className="task-form">
