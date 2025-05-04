@@ -38,7 +38,7 @@ const Register = () => {
           placeholder="Senha"
           required
         />
-        <button type="submit">Entrar</button>
+        <button type="submit">Registrar</button>
         <p>
           Já tem conta?{" "}
           <button
