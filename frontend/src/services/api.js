@@ -13,39 +13,24 @@ export async function fetchAPI(endpoint, method = "GET", body = null) {
   // Adiciona Content-Type se houver corpo
   if (body) {
     options.headers["Content-Type"] = "application/json";
-    options.body = JSON.stringify(body); // Sempre converte para JSON
+    options.body = JSON.stringify(body); 
   }
 
-  // Adiciona token se existir
   const token = localStorage.getItem("token");
   if (token) {
     options.headers["Authorization"] = `Bearer ${token}`;
   }
 
-  try {
-    const response = await fetch(`${apiUrl}${endpoint}`, options);
+  const response = await fetch(`${apiUrl}${endpoint}`, options);
 
-    // Verifica token expirado/inválido
-    if (response.status === 401) {
-      localStorage.removeItem("token");
-      throw new Error("Sessão expirada. Faça login novamente.");
-    }
-
-    if (!response.ok) {
-      let errorData;
-      try {
-        errorData = await response.json();
-      } catch {
-        errorData = { message: await response.text() };
-      }
-      throw new Error(
-        errorData.message || `Erro ${response.status}: ${response.statusText}`
-      );
-    }
-
-    return response.json();
-  } catch (error) {
-    console.error("Erro na requisição:", error);
-    throw error; // Propaga o erro para quem chamou a função
+  if (!response.ok) {
+    let errorData;
+    console.log("response: ", response);
+    errorData = await response.json();
+    console.log(errorData)
+    throw new Error(errorData.error|| "Ai deu o carai mesmo");
   }
+
+  return response.json();
+  
 }

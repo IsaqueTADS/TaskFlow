@@ -19,6 +19,7 @@ const Login = () => {
       navigate("/tasks");
     } catch (err) {
       setError(err.message);
+      console.log(error)
     }
   };
 
