@@ -13,7 +13,7 @@ export async function fetchAPI(endpoint, method = "GET", body = null) {
   // Adiciona Content-Type se houver corpo
   if (body) {
     options.headers["Content-Type"] = "application/json";
-    options.body = JSON.stringify(body); 
+    options.body = JSON.stringify(body);
   }
 
   const token = localStorage.getItem("token");
@@ -23,14 +23,18 @@ export async function fetchAPI(endpoint, method = "GET", body = null) {
 
   const response = await fetch(`${apiUrl}${endpoint}`, options);
 
+  // if (response.status === 401) {
+  //   let errorData;
+  //   errorData = await response.json();
+  //   console.log(errorData);
+  //   if (errorData.error === "Token inválido") localStorage.removeItem("token");
+  // }
+
   if (!response.ok) {
     let errorData;
-    console.log("response: ", response);
     errorData = await response.json();
-    console.log(errorData)
-    throw new Error(errorData.error|| "Ai deu o carai mesmo");
+    throw new Error(errorData.error || "Ai deu o carai mesmo");
   }
 
   return response.json();
-  
 }

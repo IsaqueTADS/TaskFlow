@@ -7,7 +7,7 @@ import { FaTrash } from "react-icons/fa";
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState([]);
+  const [newTask, setNewTask] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Tasks = () => {
     try {
       const data = await fetchAPI("/tasks");
       setTasks(data);
-    } catch (error) {
+    } catch (err) {
       console.error("Erro ao carregar tarefas: ", err);
       localStorage.removeItem("token");
       navigate("/");
@@ -32,17 +32,22 @@ const Tasks = () => {
 
   const handleAddTask = async () => {
     const trimmedTask = newTask.trim();
-
     if (!trimmedTask) {
       alert("O título da tarefa não pode estar vazio!");
       return; // Impede a requisição
     }
     try {
       const task = await fetchAPI("/tasks", "POST", { title: newTask });
-      setTasks([...tasks, task]);
+      setTasks((prev) => (Array.isArray(prev) ? [...prev, task] : [task]));
       setNewTask("");
     } catch (err) {
-      console.error("Erro ao criar tarefa:", err);
+      if (err.message === "Token inválido") {
+        alert("Seu tempo de login esgotou, logue novamente!");
+        localStorage.removeItem("token");
+        navigate("/");
+      } else {
+        console.error("Erro ao criar tarefa:", err);
+      }
     }
   };
 
@@ -111,5 +116,3 @@ const Tasks = () => {
 };
 
 export default Tasks;
-
-/* /C:/MeusProjetos/taskflow/frontend/src/assets/styles/index.css */
