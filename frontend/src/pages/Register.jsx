@@ -27,7 +27,7 @@ const Register = () => {
           <h2>Cadastre-se</h2>
           <p>Cadastre-se no nosso site para fazer suas tasks</p>
         </div>
-        {error && <p style={{ color: "red" }}>{error || "v"}</p>}
+        <div className="register-error">{error && <p style={{ color: "red" }}>{error}</p>}</div>
         <form onSubmit={handleSubmit} className="form-register">
           <input
             type="email"

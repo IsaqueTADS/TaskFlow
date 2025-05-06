@@ -19,7 +19,7 @@ const Login = () => {
       navigate("/tasks");
     } catch (err) {
       setError(err.message);
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -30,7 +30,9 @@ const Login = () => {
           <h2>login</h2>
           <p>Acesse sua conta e comece já.</p>
         </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        <div className="login-erro">
+          <div className="register-error">{error && <p style={{ color: "red" }}>{error}</p>}</div>
+        </div>
         <form onSubmit={handleSubmit} className="form-login">
           <input
             type="email"
@@ -41,6 +43,7 @@ const Login = () => {
           />
           <input
             type="password"
+            
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Senha"
