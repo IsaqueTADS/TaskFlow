@@ -60,10 +60,18 @@ export const deleteTask = async (req, res) => {
   }
 };
 
-export const deletarAllTask = async (rqe, res) => {
+export const deletarAllTask = async (req, res) => {
   const userId = req.userId;
 
   try {
+    const tasks = await prisma.task.findMany({
+      where: { userId },
+    });
+
+    if (tasks.length === 0) {
+      return res.status(404).json({ error: "Nenhuma task econtrada" });
+    }
+
     await prisma.task.deleteMany({
       where: { userId },
     });

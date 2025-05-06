@@ -12,7 +12,7 @@ router.use(authenticate);
 
 router.get("/", getTask);
 router.post("/", createTask);
-router.delete("/:id", deleteTask);
 router.delete("/all", deletarAllTask);
+router.delete("/:id", deleteTask);
 
 export default router;
