@@ -6,6 +6,7 @@
   font-family: Arial, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
+  height: 900px;
 }
 
 .longout-btn {
@@ -13,16 +14,12 @@
   background: none;
   border: none;
   cursor: pointer;
+  margin-top: 15px;
 }
 
 .longout-btn img {
-  width: 24px;
-  height: 24px;
-}
-
-h2 {
-  margin-bottom: 20px;
-  color: #333;
+  width: 44px;
+  height: 44px;
 }
 
 .task-content {
@@ -34,12 +31,36 @@ h2 {
   padding: 20px; /* menos exagerado */
   min-height: 400px;
   border-radius: 12px;
+  transform: scale(1.6);
+  margin-top: 200px;
 }
 
 .task-content hr {
   height: 1px;
-  width: 400px;
+  width: 420px;
   background-color: rgb(188, 186, 186);
+}
+.taks-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.taks-title h2 {
+  /* margin-bottom: 20px; */
+  color: #333;
+}
+
+.taks-title button {
+  border-radius: 4px;
+  background: transparent;
+  border: none;
+  border: 1px solid black;
+  padding: 8px 15px;
+}
+.taks-title button:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
 }
 .task-list {
   background-color: #f0f0f0;
@@ -52,6 +73,10 @@ h2 {
   overflow-y: auto;
   scroll-behavior: smooth;
   border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .task-list li {
@@ -84,6 +109,8 @@ h2 {
 
 .delete-btn:hover {
   color: #a71d2a;
+  scale: 1.1;
+  transition: scale 0.2s ease;
 }
 
 .task-form {
@@ -113,4 +140,64 @@ h2 {
 
 .task-form button:hover {
   background-color: #0056b3;
+}
+
+/* Responsividade para telas menores (celulares e tablets) */
+@media (max-width: 768px) {
+  .tasks-container {
+    padding: 10px;
+    height: auto;
+    transform: scale(1); /* reseta o scale para evitar zoom excessivo */
+  }
+
+  .task-content {
+    transform: scale(1.5); /* remove o zoom */
+    margin-top: 200px;
+    padding: 15px;
+  }
+
+  .task-list {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .task-list li {
+    align-items: flex-start;
+    width: 350px;
+  }
+
+  .task-list li span {
+    width: 100%;
+  }
+
+  .task-form {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .task-form input,
+  .task-form button {
+    width: 100%;
+  }
+
+  .taks-title {
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .task-content hr {
+    width: 100%;
+  }
+}
+
+@media (max-width: 581px) {
+  .task-content {
+    transform: scale(1);
+    margin-top: 40px;
+  }
+}
+@media (max-width: 400px) {
+  .task-list li {
+    width: 300px;
+  }
 }
