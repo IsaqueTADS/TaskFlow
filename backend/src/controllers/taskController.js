@@ -59,3 +59,18 @@ export const deleteTask = async (req, res) => {
     res.status(500).json({ error: "Erro ao deletar task" });
   }
 };
+
+export const deletarAllTask = async (rqe, res) => {
+  const userId = req.userId;
+
+  try {
+    await prisma.task.deleteMany({
+      where: { userId },
+    });
+    res
+      .status(200)
+      .json({ message: "Todas as tarefas foram deletadas com sucesso." });
+  } catch (error) {
+    res.status(500).json({ error: "Erro ao deletar todas as tasks" });
+  }
+};
