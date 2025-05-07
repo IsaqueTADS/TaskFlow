@@ -97,6 +97,22 @@ const Tasks = () => {
       }
     }
   };
+
+  const handleToggleCheck = async (taskId, isCompleted) => {
+    try {
+      await fetchAPI(`/tasks/${taskId}`, "PUT", { completed: isCompleted });
+      setTasks((prev) =>
+        prev.map((task) => {
+          return task.id === taskId
+            ? { ...task, completed: isCompleted }
+            : task;
+        })
+      );
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   const confirmDelete = (taskId) => {
     if (window.confirm("Tem certeza que deseja excluir esta tarefa?")) {
       handleDeleteTask(taskId);
@@ -119,11 +135,15 @@ const Tasks = () => {
           {Array.isArray(tasks) &&
             tasks.map((task) => (
               <li key={task.id}>
+                <input
+                  type="checkbox"
+                  className="custom-checkbox"
+                  checked={task.completed}
+                  onChange={() => handleToggleCheck(task.id, !task.completed)}
+                />
                 <span>{task.title}</span>
                 <button
-                  onClick={() => {
-                    confirmDelete(task.id);
-                  }}
+                  onClick={() => confirmDelete(task.id)}
                   className="delete-btn"
                   aria-label="Deletar tarefa"
                 >
