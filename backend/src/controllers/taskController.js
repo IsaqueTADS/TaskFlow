@@ -4,6 +4,9 @@ export const getTask = async (req, res) => {
   try {
     const task = await prisma.task.findMany({
       where: { userId: req.userId },
+      orderBy: {
+        id: "desc",
+      },
     });
 
     if (task.length === 0) {
@@ -80,5 +83,41 @@ export const deletarAllTask = async (req, res) => {
       .json({ message: "Todas as tarefas foram deletadas com sucesso." });
   } catch (error) {
     res.status(500).json({ error: "Erro ao deletar todas as tasks" });
+  }
+};
+
+export const updateCompletedTask = async (req, res) => {
+  const userId = req.userId;
+  const { id } = req.params;
+
+  const task = await prisma.task.findUnique({
+    where: {
+      id: parseInt(id),
+    },
+  });
+  if (!task) {
+    return res.status(404).json({ error: "Nenhuma task foi econtrada" });
+  }
+
+  if (task.userId !== userId) {
+    res
+      .status(403)
+      .json({ error: "Você não tem permissão para atualizar esta task" });
+  }
+
+  const { completed } = req.body;
+
+  try {
+    await prisma.task.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: {
+        completed: completed,
+      },
+    });
+    return res.status(200).json({ message: "Task atualizada com sucesso" });
+  } catch (error) {
+    return res.status(500).json({ error: "Erro ao atualizar tasks" });
   }
 };
