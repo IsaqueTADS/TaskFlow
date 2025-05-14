@@ -30,7 +30,9 @@ const Login = () => {
           <p>Acesse sua conta e comece já.</p>
         </div>
         <div className="login-erro">
-          <div className="register-error">{error && <p style={{ color: "red" }}>{error}</p>}</div>
+          <div className="register-error">
+            {error && <p style={{ color: "red" }}>{error}</p>}
+          </div>
         </div>
         <form onSubmit={handleSubmit} className="form-login">
           <input
@@ -42,7 +44,6 @@ const Login = () => {
           />
           <input
             type="password"
-            
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Senha"
@@ -61,6 +62,35 @@ const Login = () => {
             </a>
           </p>
         </form>
+        <div className="login-credit-container">
+          <p>
+            Design original por{" "}
+            <a
+              href="https://www.figma.com/community/file/1256871498988476466/login-page-ui-design"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Mohammed Jawed
+            </a>{" "}
+            para Figma, modificado por{" "}
+            <a
+              href="https://github.com/IsaqueTADS"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              IsaqueTADS
+            </a>
+            . Licenciado sob a{" "}
+            <a
+              href="https://creativecommons.org/licenses/by/4.0/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CC BY 4.0
+            </a>
+            .
+          </p>
+        </div>
       </div>
       <div className="container-img-login">
         <img src={fotoLogin} alt="" />

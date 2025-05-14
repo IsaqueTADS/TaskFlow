@@ -27,7 +27,9 @@ const Register = () => {
           <h2>Cadastre-se</h2>
           <p>Cadastre-se no nosso site para fazer suas tasks</p>
         </div>
-        <div className="register-error">{error && <p style={{ color: "red" }}>{error}</p>}</div>
+        <div className="register-error">
+          {error && <p style={{ color: "red" }}>{error}</p>}
+        </div>
         <form onSubmit={handleSubmit} className="form-register">
           <input
             type="email"
@@ -56,6 +58,35 @@ const Register = () => {
             </a>
           </p>
         </form>
+        <div className="register-credit-container">
+          <p>
+            Design original por{" "}
+            <a
+              href="https://www.figma.com/community/file/1256871498988476466/login-page-ui-design"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Mohammed Jawed
+            </a>{" "}
+            para Figma, modificado por{" "}
+            <a
+              href="https://github.com/IsaqueTADS"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              IsaqueTADS
+            </a>
+            . Licenciado sob a{" "}
+            <a
+              href="https://creativecommons.org/licenses/by/4.0/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              CC BY 4.0
+            </a>
+            .
+          </p>
+        </div>
       </div>
       <div className="container-img-register">
         <img src={fotoLogin} alt="" />
